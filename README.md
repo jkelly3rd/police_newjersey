@@ -1,21 +1,23 @@
 # New Jersey Officer Data Processing
 
-This script processes data obtained from the state of New Jersey that includes personnel and employment history for all officers certified in the state. It performs several operations to clean, standardize, and reformat the data. The original data is preserved in a csv format for reference, and a standardized index is created for further analysis. The state did not provide a unique identifier number, end dates for work histories and other key elements provided by other states. Where that information was not provided, columns are left blank.
+These data were obtained under the state open records law from the [New Jersey Police Training Commission](https://www.njoag.gov/about/divisions-and-offices/division-of-criminal-justice-home/police-training-commission/). 
+
+The data released includes personnel information and employment history for all officers certified in the state going back to the 1940s. Our processing performs several operations to clean, standardize, and reformat the data into a work history index file that is consistent with other states' data obtained as part of this tracking project. The original data is preserved in CSV format for reference. The state did not provide a unique identifier number, end dates for work histories, and other key elements provided by other states. Where that information was not provided, columns are left blank in the standardized index.
 
 ## R Packages Used
 
-- tidyverse: For data manipulation and visualization
-- lubridate: For handling date-time data
-- stringi: For string manipulation
-- janitor: For cleaning data and managing the workspace
+- `tidyverse`: For data manipulation and visualization
+- `lubridate`: For handling date-time data
+- `stringi`: For string manipulation
+- `janitor`: For cleaning data and managing the workspace
 
-## Data
+## Data Files
 
-The input data is an Excel file named `nj_response_opra_request.xlsx` located in the `data/source/` directory. The file contains employment history data for officers in New Jersey.
+The Police Training Commission provided one data files in response to a state public records request:
 
-The output data is written to two CSV files in the `data/processed/` directory: `nj-2023-index.csv` and `nj-2023-original-employment.csv`.
+1. `nj_response_opra_request.xlsx`: Contains certification and work history for law enforcement officers
 
-## Data Cleaning
+## Data Cleaning and Processing
 
 The data cleaning process involves several steps:
 
@@ -27,7 +29,12 @@ The data cleaning process involves several steps:
 
 ## Output
 
-The cleaned data is written to two CSV files: `nj-2023-index.csv` and `nj-2023-original-employment.csv`. The index file contains a simplified version of the data for easy reference, while the original employment file contains the full cleaned data.
+The script generates two CSV files:
+
+1. `nj-2023-original-employment.csv`: Contains work history information data in csv format with all original data and fields provided by the state
+4. `nj-2023-index.csv`: Contains a standardized index of officers, with one additional field indicating the reason for the change.
+
+The output files are stored in the `data/processed/` directory.
 
 ## Questions or suggestions for improvement?
 
