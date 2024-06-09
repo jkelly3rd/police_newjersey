@@ -29,10 +29,12 @@ The data cleaning process involves several steps:
 
 ## Output
 
-The script generates two CSV files:
+The script generates three CSV files:
 
 1. `nj-2023-original-employment.csv`: Contains work history information data in csv format with all original data and fields provided by the state
-4. `nj-2023-index.csv`: Contains a standardized index of officers, with one additional field indicating the reason for the change.
+2. `nj-2023-index.csv`: Contains a standardized index of officers' work histories consistent with the files provided for other states.
+3. `nj-2023-index-enhanced.csv`: Contains a standardized index of officers, with one additional field indicating the reason for the change of the officer's status.
+
 
 The output files are stored in the `data/processed/` directory.
 

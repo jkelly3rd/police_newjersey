@@ -16,6 +16,7 @@ employment_file = "data/source/nj_response_opra_request.xlsx"
 
 # Define the paths to the output CSV files
 nj_index = "data/processed/nj-2023-index.csv"
+nj_index = "data/processed/nj-2023-index-enhanced.csv"
 nj_original_employment = "data/processed/nj-2023-original-employment.csv"
 
 # Create a template dataframe for the officers index.
@@ -100,6 +101,11 @@ nj_history <- nj_history %>% select(-rest_name)
 nj_officers_index <- bind_rows(template_index,nj_history)
 
 # Export CSV of officer work history index for project
-nj_officers_index %>% write_csv(nj_index)
+nj_officers_index %>% write_csv(nj_index_enhanced)
 
+# Remove extra columns and export csv of standard work history index for project
+nj_officers_index <- nj_officers_index %>% select(person_nbr, full_name, first_name, middle_name, last_name, suffix, year_of_birth, age, agency, type, rank, start_date, end_date)
+
+# Export csv of standard work history index for project
+nj_officers_index %>% write_csv(nj_index)    
 
