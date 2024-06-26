@@ -16,7 +16,7 @@ employment_file = "data/source/nj_response_opra_request.xlsx"
 
 # Define the paths to the output CSV files
 nj_index = "data/processed/nj-2023-index.csv"
-nj_index = "data/processed/nj-2023-index-enhanced.csv"
+nj_index_enhanced = "data/processed/nj-2023-index-enhanced.csv"
 nj_original_employment = "data/processed/nj-2023-original-employment.csv"
 
 # Create a template dataframe for the officers index.
@@ -63,6 +63,8 @@ nj_history$age[nj_history$year_of_birth == "1900"] <- NA
 nj_history$age[nj_history$year_of_birth == "1900"] <- NA
 # If start_date is 1900-01-01, replace with an NA character
 nj_history$start_date[nj_history$start_date == as.Date("1900-01-01")] <- NA
+# Ensure start_date is yyyymmdd format using ymd
+nj_history$start_date <- ymd(nj_history$start_date)
 
 # Drop agency type and agency ori number (FBI ID number for agency)
 nj_history <- nj_history %>% select(-agency_type, -agency_ori_nbr)
@@ -81,12 +83,12 @@ nj_history$first_name <- sapply(split_names, '[', 1)
 nj_history$middle_name <- sapply(split_names, '[', 2)
 nj_history$suffix <- sapply(split_names, '[', 3)
 
-# If suffix is not NA and not equal to "Jr", "Sr", "Jr.","JR.","SR.","II","IV","Sr.", or "V" 
+# If suffix is not NA and not equal to "Jr", "Sr", "Jr.","JR.","SR.","II","III"IV","Sr.", or "V" 
 # then append to middle_name column
-nj_history$middle_name <- ifelse(!is.na(nj_history$suffix) & !nj_history$suffix %in% c("Jr", "Sr", "Jr.","JR.","SR.","II","IV","Sr.", "V"), paste(nj_history$middle_name, nj_history$suffix), nj_history$middle_name)
-# If suffix is not NA and is equal to "Jr", "Sr", "Jr.","JR.","SR.","II","IV","Sr.", or "V" 
+nj_history$middle_name <- ifelse(!is.na(nj_history$suffix) & !nj_history$suffix %in% c("Jr", "Sr", "Jr.","JR.","SR.","II","III","IV","Sr.", "V"), paste(nj_history$middle_name, nj_history$suffix), nj_history$middle_name)
+# If suffix is not NA and is equal to "Jr", "Sr", "Jr.","JR.","SR.","II","III","IV","Sr.", or "V" 
 # then delete from suffix column
-nj_history$suffix <- ifelse(nj_history$suffix %in% c("Jr", "Sr", "Jr.","JR.","SR.","II","IV","Sr.", "V"), nj_history$suffix,NA)
+nj_history$suffix <- ifelse(nj_history$suffix %in% c("Jr", "Sr", "Jr.","JR.","SR.","II","III","IV","Sr.", "V"), nj_history$suffix,NA)
 # Change JR. to Jr. and SR. to Sr. in the suffix column
 nj_history$suffix <- gsub("JR.", "Jr.", nj_history$suffix)
 nj_history$suffix <- gsub("SR.", "Sr.", nj_history$suffix)
